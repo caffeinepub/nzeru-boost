@@ -1,0 +1,91 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-remaining-install-button-text-from-nzeru-boost-to-bongo-feed-to-complete-the-rebranding",
+      "featureTitle": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+      "files": [
+        "frontend/src/components/Header.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-malawi-flag-color-scheme-throughout-the-entire-application-using-black-as-primary-background-red-for-accents-and-buttons-and-green-for-secondary-elements",
+      "featureTitle": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "files": [
+        "frontend/src/components/DashboardStats.tsx",
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/components/QuizHistoryList.tsx",
+        "frontend/src/components/QuizResults.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-all-color-variables-in-frontend-index-css-and-frontend-src-index-css-to-reflect-the-malawi-flag-color-palette-black-000000-red-ce1126-green-339e35",
+      "featureTitle": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "files": [
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-tailwind-configuration-in-frontend-tailwind-config-js-to-support-the-malawi-flag-color-theme-with-appropriate-color-mappings",
+      "featureTitle": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "files": [
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

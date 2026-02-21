@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        
+        /* Light mode - Malawi flag theme */
+        --background: 0.98 0.01 0;
+        --foreground: 0.15 0 0;
+        --card: 1 0 0;
+        --card-foreground: 0.15 0 0;
+        --popover: 1 0 0;
+        --popover-foreground: 0.15 0 0;
+        
+        /* Primary - Malawi Red */
+        --primary: 0.48 0.21 25;
+        --primary-foreground: 0.99 0 0;
+        
+        /* Secondary - Malawi Green */
+        --secondary: 0.58 0.15 145;
+        --secondary-foreground: 0.99 0 0;
+        
+        --muted: 0.94 0.01 0;
+        --muted-foreground: 0.45 0.02 0;
+        
+        --accent: 0.48 0.21 25;
+        --accent-foreground: 0.99 0 0;
+        
+        /* Destructive - Malawi Red */
+        --destructive: 0.48 0.21 25;
+        --destructive-foreground: 0.99 0 0;
+        
+        --border: 0.88 0.01 0;
+        --input: 0.88 0.01 0;
+        --ring: 0.48 0.21 25;
+        
+        /* Chart colors - Malawi flag palette variations */
+        --chart-1: 0.58 0.15 145;  /* Green */
+        --chart-2: 0.48 0.21 25;   /* Red */
+        --chart-3: 0.65 0.12 145;  /* Light Green */
+        --chart-4: 0.55 0.18 25;   /* Light Red */
+        --chart-5: 0.40 0.18 25;   /* Dark Red */
+    }
+
+    .dark {
+        --background: 0.12 0 0;
+        --foreground: 0.98 0.01 0;
+        --card: 0.18 0.01 0;
+        --card-foreground: 0.98 0.01 0;
+        --popover: 0.18 0.01 0;
+        --popover-foreground: 0.98 0.01 0;
+        
+        /* Primary - Bright Malawi Red for dark mode */
+        --primary: 0.55 0.23 25;
+        --primary-foreground: 0.12 0 0;
+        
+        --secondary: 0.65 0.17 145;
+        --secondary-foreground: 0.12 0 0;
+        
+        --muted: 0.22 0.01 0;
+        --muted-foreground: 0.65 0.02 0;
+        
+        --accent: 0.55 0.23 25;
+        --accent-foreground: 0.12 0 0;
+        
+        --destructive: 0.55 0.23 25;
+        --destructive-foreground: 0.12 0 0;
+        
+        --border: 0.25 0.01 0;
+        --input: 0.25 0.01 0;
+        --ring: 0.55 0.23 25;
+        
+        /* Chart colors - Vibrant Malawi palette for dark mode */
+        --chart-1: 0.65 0.17 145;
+        --chart-2: 0.55 0.23 25;
+        --chart-3: 0.70 0.15 145;
+        --chart-4: 0.60 0.20 25;
+        --chart-5: 0.45 0.20 25;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    /* Smooth transitions */
+    * {
+        @apply transition-colors duration-200;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        @apply bg-muted/30;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        @apply bg-muted-foreground/30 rounded-full;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-muted-foreground/50;
+    }
+}
+
+@layer utilities {
+    /* Custom animations */
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    .animate-slide-up {
+        animation: slide-up 0.4s ease-out;
+    }
+    
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
+}

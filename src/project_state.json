@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Nzeru Boost - An educational quiz web application where students can upload their own study materials (documents, textbooks) and generate AI-powered quizzes to boost their knowledge. The app aims to help students who prefer digital learning over traditional reading by providing an engaging way to study through quiz generation from their own documents.",
+  "architectural_notes": [
+    "Web-based application accessible via browser on all devices (Android, iOS, desktop)",
+    "Document processing system to extract text from uploaded study materials",
+    "AI integration for automatic quiz generation from document content",
+    "Backend on Internet Computer using Motoko for data storage and quiz management",
+    "React TypeScript frontend for responsive user interface"
+  ],
+  "known_issues": [],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-document-upload-interface-where-students-can-upload-their-study-materials-including-school-documents-textbooks-and-other-educational-pdfs",
+      "title": "Create a document upload interface where students can upload their study materials including school documents, textbooks, and other educational PDFs",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-quiz-taking-interface-where-students-can-answer-generated-questions-with-navigation-between-questions",
+      "title": "Create a quiz-taking interface where students can answer generated questions with navigation between questions",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-calculate-and-display-quiz-results-including-score-percentage-and-grade-with-feedback",
+      "title": "Calculate and display quiz results including score, percentage, and grade with feedback",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-student-dashboard-showing-quiz-history-best-scores-and-progress-over-time",
+      "title": "Create a student dashboard showing quiz history, best scores, and progress over time",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-user-authentication-using-internet-identity-so-students-have-individual-accounts-and-can-track-their-progress",
+      "title": "Implement user authentication using Internet Identity so students have individual accounts and can track their progress",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-an-engaging-modern-interface-that-appeals-to-students-who-prefer-digital-learning-over-traditional-reading",
+      "title": "Design an engaging, modern interface that appeals to students who prefer digital learning over traditional reading",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-application-name-displayed-in-the-header-navigation-element-2-html-1-body-1-div-1-div-1-header-1-div-1-div-1-a-1-span-1-from-nzeru-boost-to-bongo-feed",
+      "title": "Update the application name displayed in the header navigation (Element 2: /html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[1]/a[1]/span[1]) from 'Nzeru Boost' to 'Bongo Feed'",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-html-page-title-in-frontend-index-html-from-nzeru-boost-to-bongo-feed",
+      "title": "Update the HTML page title in frontend/index.html from 'Nzeru Boost' to 'Bongo Feed'",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-search-and-replace-all-remaining-instances-of-nzeru-boost-with-bongo-feed-throughout-the-frontend-codebase-including-component-text-metadata-and-configuration-files",
+      "title": "Search and replace all remaining instances of 'Nzeru Boost' with 'Bongo Feed' throughout the frontend codebase, including component text, metadata, and configuration files",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-remaining-install-button-text-from-nzeru-boost-to-bongo-feed-to-complete-the-rebranding",
+      "title": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-malawi-flag-color-scheme-throughout-the-entire-application-using-black-as-primary-background-red-for-accents-and-buttons-and-green-for-secondary-elements",
+      "title": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-color-variables-in-frontend-index-css-and-frontend-src-index-css-to-reflect-the-malawi-flag-color-palette-black-000000-red-ce1126-green-339e35",
+      "title": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-tailwind-configuration-in-frontend-tailwind-config-js-to-support-the-malawi-flag-color-theme-with-appropriate-color-mappings",
+      "title": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Document upload functionality for study materials (PDFs, textbooks, school documents)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "AI-powered quiz generation based on uploaded documents",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Quiz taking interface with multiple choice and structured questions",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Score tracking and results with grades and feedback",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Student progress monitoring dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Store uploaded documents in the backend with metadata including filename, upload date, and student association",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Generate quiz questions automatically based on the content of uploaded documents",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Apply Malawi flag color theme (black, red, green) throughout the entire app including header, buttons, backgrounds, and accents",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Nzeru Boost",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,130 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Apply Malawi flag color theme and fix install button text",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "summary": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+      "acceptanceCriteria": [
+        "The install button displays 'Bongo Feed' instead of 'Nzeru Boost'",
+        "All visible text in the application uses 'Bongo Feed' consistently"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Search for any remaining instances of 'Nzeru Boost' in the PWA manifest link, meta tags, or other HTML elements and replace with 'Bongo Feed'. Ensure the title already shows 'Bongo Feed' and verify no other references to the old name exist."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Review the header component for any references to 'Nzeru Boost' in aria-labels, tooltips, or hidden text elements that may be used for install prompts or PWA features. Replace all instances with 'Bongo Feed'."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "acceptanceCriteria": [
+        "Header uses Malawi flag colors (black, red, green)",
+        "All buttons use red color for primary actions",
+        "Background uses black as the primary color",
+        "Secondary elements and accents use green color",
+        "The color scheme is applied consistently across all pages and components",
+        "Both light and dark theme variables are updated to reflect the Malawi flag colors"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update all CSS custom property color values in both :root and .dark theme blocks to implement the Malawi flag palette. Set background colors to black (#000000), primary/accent colors to red (#CE1126), and secondary colors to green (#339E35). Adjust foreground, border, muted, and chart colors to complement the flag palette while maintaining readability and contrast. Ensure card, popover, and sidebar color variables also follow the theme."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Update the header component styling to use the Malawi flag colors. Apply black background, ensure navigation links and text use appropriate foreground colors for visibility against black, and verify button styling uses the red accent color from the updated CSS variables."
+        },
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Update button styling to use red color for the primary login action and ensure logout button uses appropriate colors from the Malawi flag palette. Replace existing blue color classes with red equivalents using the updated CSS variables."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Update footer styling to complement the black background theme. Ensure text colors and link colors use appropriate values from the Malawi flag palette for visibility."
+        },
+        {
+          "path": "frontend/src/components/DashboardStats.tsx",
+          "operation": "modify",
+          "description": "Update card styling to work with the black background theme. Adjust border colors, hover effects, and accent colors to use the Malawi flag palette (red accents, green secondary elements)."
+        },
+        {
+          "path": "frontend/src/components/DocumentList.tsx",
+          "operation": "modify",
+          "description": "Update document card styling and button colors to use red for primary actions (quiz buttons) and ensure card backgrounds and borders work with the black theme. Apply green for secondary elements if applicable."
+        },
+        {
+          "path": "frontend/src/components/DocumentUpload.tsx",
+          "operation": "modify",
+          "description": "Update upload area styling, border colors, and button colors to align with the Malawi flag theme. Use red for the upload button and green for secondary indicators or success states."
+        },
+        {
+          "path": "frontend/src/components/QuizHistoryList.tsx",
+          "operation": "modify",
+          "description": "Update quiz history card styling, grade badge colors, and retry button colors to work with the black background. Ensure grade badges use appropriate Malawi flag colors while maintaining readability. Use red for retry buttons."
+        },
+        {
+          "path": "frontend/src/components/QuizResults.tsx",
+          "operation": "modify",
+          "description": "Update results display styling including grade badge colors, feedback text colors, and navigation button colors to align with the Malawi flag palette. Use red for primary action buttons and green for success indicators."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Update landing page hero section and feature cards to use the Malawi flag color scheme. Apply black background, red accents for call-to-action elements, and green for secondary feature highlights."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "acceptanceCriteria": [
+        "CSS custom properties for backgrounds use black (#000000)",
+        "CSS custom properties for primary/accent colors use red (#CE1126)",
+        "CSS custom properties for secondary colors use green (#339E35)",
+        "Border and muted colors are adjusted to complement the Malawi flag palette",
+        "Chart colors are updated to use variations of the flag colors"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Comprehensively update all color-related CSS custom properties in OKLCH color space. Set --background to black (#000000/OKLCH equivalent), --primary to red (#CE1126/OKLCH equivalent), --secondary to green (#339E35/OKLCH equivalent). Update --accent, --destructive, --muted, --border, --ring, and chart colors to use variations of the flag palette. Ensure both light and dark theme variables are updated. Maintain proper contrast ratios for accessibility between foreground and background colors."
+        },
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Update all color-related CSS custom properties if this file contains theme definitions separate from frontend/src/index.css. Apply the same Malawi flag color palette (black, red, green) consistently. If this file only imports Tailwind directives, verify no additional color overrides need updating."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "acceptanceCriteria": [
+        "Tailwind theme colors reference the updated CSS variables",
+        "Custom color utilities support the Malawi flag palette",
+        "All existing Tailwind classes continue to work with the new color scheme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Review and update the theme.extend.colors section to ensure all color mappings correctly reference the updated CSS variables that now implement the Malawi flag palette. Verify that colors like background, foreground, primary, secondary, accent, destructive, muted, border, ring, and chart colors all map to the appropriate CSS custom properties. Ensure the configuration supports both light and dark themes with the new color scheme. Add any additional color utilities if needed to support Malawi flag colors throughout the application."
+        }
+      ]
+    }
+  ]
+}

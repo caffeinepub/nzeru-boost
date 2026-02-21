@@ -1,0 +1,109 @@
+{
+  "kind": "build_request",
+  "title": "Apply Malawi flag color theme and fix install button text",
+  "projectName": "Bongo Feed",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "text": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent-3",
+          "msg-recent-5",
+          "msg-recent-7"
+        ],
+        "quotes": [
+          "there's one install button still showing the old name",
+          "Yes please",
+          "Should I still fix the remaining install button text to say 'Bongo Feed'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The install button displays 'Bongo Feed' instead of 'Nzeru Boost'",
+        "All visible text in the application uses 'Bongo Feed' consistently"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent-4",
+          "msg-recent-6"
+        ],
+        "quotes": [
+          "change the color too theme must be the flag of Malawi",
+          "1.first option, 2.first option"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header uses Malawi flag colors (black, red, green)",
+        "All buttons use red color for primary actions",
+        "Background uses black as the primary color",
+        "Secondary elements and accents use green color",
+        "The color scheme is applied consistently across all pages and components",
+        "Both light and dark theme variables are updated to reflect the Malawi flag colors"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent-4",
+          "msg-recent-6"
+        ],
+        "quotes": [
+          "change the color too theme must be the flag of Malawi",
+          "Black as primary background, red for accents/buttons, and green for secondary elements"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CSS custom properties for backgrounds use black (#000000)",
+        "CSS custom properties for primary/accent colors use red (#CE1126)",
+        "CSS custom properties for secondary colors use green (#339E35)",
+        "Border and muted colors are adjusted to complement the Malawi flag palette",
+        "Chart colors are updated to use variations of the flag colors"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent-4",
+          "msg-recent-6"
+        ],
+        "quotes": [
+          "Apply Malawi flag colors (black, red, and green) throughout the entire app"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Tailwind theme colors reference the updated CSS variables",
+        "Custom color utilities support the Malawi flag palette",
+        "All existing Tailwind classes continue to work with the new color scheme"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify backend files or the Motoko actor",
+    "Do not change authentication logic or Internet Identity integration",
+    "Preserve all existing functionality while updating colors",
+    "Do not modify read-only paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Adding new features beyond color theme and button text changes",
+    "Modifying the backend logic or data models",
+    "Changing the application structure or routing",
+    "Adding animations or transitions beyond what already exists"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
