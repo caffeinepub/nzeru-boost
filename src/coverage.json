@@ -1,91 +1,83 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T13:25:59.927Z",
+  "generatedAt": "2026-02-21T17:21:52.508Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
+    "total": 5,
     "implemented": 4,
     "items": [
       {
-        "id": "REQ-13",
-        "summary": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+        "id": "REQ-19",
+        "summary": "Extend the backend document metadata structure to include an optional 'examinationBoard' field that can store examination board formats such as 'ABMA EXAMINATION', 'Cambridge', 'IB', etc.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Add an examination board selector dropdown to the DocumentUpload component that allows students to optionally specify the examination board format (e.g., ABMA EXAMINATION, Cambridge, IB, IGCSE, None) when uploading study materials",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html",
-          "frontend/src/components/Header.tsx"
+          "frontend/src/components/DocumentUpload.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/Header.tsx"
+          "frontend/src/components/DocumentUpload.tsx"
         ]
       },
       {
-        "id": "REQ-14",
-        "summary": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+        "id": "REQ-21",
+        "summary": "Update the useUploadDocument hook to include the selected examination board format when sending document metadata to the backend",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/LoginButton.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/components/DashboardStats.tsx",
-          "frontend/src/components/DocumentList.tsx",
-          "frontend/src/components/DocumentUpload.tsx",
-          "frontend/src/components/QuizHistoryList.tsx",
-          "frontend/src/components/QuizResults.tsx",
-          "frontend/src/pages/HomePage.tsx"
+          "frontend/src/hooks/useUploadDocument.ts"
         ],
         "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/components/DashboardStats.tsx",
-          "frontend/src/components/QuizHistoryList.tsx",
-          "frontend/src/components/QuizResults.tsx",
-          "frontend/src/pages/HomePage.tsx"
+          "frontend/src/hooks/useUploadDocument.ts"
         ]
       },
       {
-        "id": "REQ-15",
-        "summary": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+        "id": "REQ-22",
+        "summary": "Display the examination board format in the DocumentList component for each uploaded document, showing it as a badge or label next to the filename",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/index.css"
+          "frontend/src/components/DocumentList.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/index.css"
+          "frontend/src/components/DocumentList.tsx"
         ]
       },
       {
-        "id": "REQ-16",
-        "summary": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+        "id": "REQ-23",
+        "summary": "Modify the quiz generation logic in QuizPage.tsx to tailor question format and style based on the examination board associated with the document, with ABMA EXAMINATION format as the first supported board",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/tailwind.config.js"
+          "frontend/src/pages/QuizPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/tailwind.config.js"
+          "frontend/src/pages/QuizPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/DashboardStats.tsx",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/components/QuizHistoryList.tsx",
-    "frontend/src/components/QuizResults.tsx",
-    "frontend/src/index.css",
-    "frontend/src/pages/HomePage.tsx",
-    "frontend/tailwind.config.js",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/DocumentList.tsx",
+    "frontend/src/components/DocumentUpload.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useUploadDocument.ts",
+    "frontend/src/pages/QuizPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

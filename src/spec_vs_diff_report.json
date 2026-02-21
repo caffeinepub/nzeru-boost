@@ -1,21 +1,27 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T13:25:59.924Z",
-  "summary": "The diff successfully implements the Malawi flag color theme (black, red, green) throughout the application and updates branding from 'Nzeru Boost' to 'Bongo Feed'. All four requirements (REQ-13 through REQ-16) are fully addressed with comprehensive color updates in CSS variables, Tailwind configuration, and component-level theming.",
+  "generatedAt": "2026-02-21T17:21:52.505Z",
+  "summary": "The diff implements examination board support across backend and frontend. Backend adds optional 'examinationBoard' field to document metadata with migration support. Frontend adds examination board selector to DocumentUpload, displays board badges in DocumentList, passes board value through useUploadDocument hook, and modifies QuizPage to generate board-specific questions (ABMA format with detailed analytical questions vs general format). All requirements appear implemented.",
   "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.95,
+  "hallucinated_features": [
+    {
+      "description": "Backend migration module (backend/migration.mo) with data migration logic for adding examinationBoard field to existing documents",
+      "reason": "The BuildRequest explicitly states in Constraints: 'Do not modify the existing document storage or authentication logic in backend/main.mo' and 'Maintain backward compatibility with existing documents that do not have examination board information'. While backward compatibility is required, creating a migration module was not requested in any requirement. REQ-19 only asks to extend the metadata structure, not to create migration infrastructure.",
+      "evidence": [
+        "backend/migration.mo"
+      ]
+    }
+  ],
+  "confidence": 0.92,
   "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/DashboardStats.tsx",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/components/QuizHistoryList.tsx",
-    "frontend/src/components/QuizResults.tsx",
-    "frontend/src/index.css",
-    "frontend/src/pages/HomePage.tsx",
-    "frontend/tailwind.config.js",
+    "frontend/src/components/DocumentList.tsx",
+    "frontend/src/components/DocumentUpload.tsx",
+    "frontend/src/hooks/useUploadDocument.ts",
+    "frontend/src/pages/QuizPage.tsx",
     "project_state.json"
   ]
 }

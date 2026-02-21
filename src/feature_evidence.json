@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-remaining-install-button-text-from-nzeru-boost-to-bongo-feed-to-complete-the-rebranding",
-      "featureTitle": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
+      "featureId": "feature-add-an-examination-board-selector-dropdown-to-the-documentupload-component-that-allows-students-to-optionally-specify-the-examination-board-format-e-g-abma-examination-cambridge-ib-igcse-none-when-uploading-study-materials",
+      "featureTitle": "Add an examination board selector dropdown to the DocumentUpload component that allows students to optionally specify the examination board format (e.g., ABMA EXAMINATION, Cambridge, IB, IGCSE, None) when uploading study materials",
       "files": [
-        "frontend/src/components/Header.tsx"
+        "frontend/src/components/DocumentUpload.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,21 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-13"
+        "REQ-20"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-apply-malawi-flag-color-scheme-throughout-the-entire-application-using-black-as-primary-background-red-for-accents-and-buttons-and-green-for-secondary-elements",
-      "featureTitle": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "featureId": "feature-update-the-useuploaddocument-hook-to-include-the-selected-examination-board-format-when-sending-document-metadata-to-the-backend",
+      "featureTitle": "Update the useUploadDocument hook to include the selected examination board format when sending document metadata to the backend",
       "files": [
-        "frontend/src/components/DashboardStats.tsx",
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/components/QuizHistoryList.tsx",
-        "frontend/src/components/QuizResults.tsx",
-        "frontend/src/index.css",
-        "frontend/src/pages/HomePage.tsx"
+        "frontend/src/hooks/useUploadDocument.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -43,15 +37,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-14"
+        "REQ-21"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-all-color-variables-in-frontend-index-css-and-frontend-src-index-css-to-reflect-the-malawi-flag-color-palette-black-000000-red-ce1126-green-339e35",
-      "featureTitle": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "featureId": "feature-display-the-examination-board-format-in-the-documentlist-component-for-each-uploaded-document-showing-it-as-a-badge-or-label-next-to-the-filename",
+      "featureTitle": "Display the examination board format in the DocumentList component for each uploaded document, showing it as a badge or label next to the filename",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/components/DocumentList.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -63,15 +57,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-22"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-tailwind-configuration-in-frontend-tailwind-config-js-to-support-the-malawi-flag-color-theme-with-appropriate-color-mappings",
-      "featureTitle": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "featureId": "feature-modify-the-quiz-generation-logic-in-quizpage-tsx-to-tailor-question-format-and-style-based-on-the-examination-board-associated-with-the-document-with-abma-examination-format-as-the-first-supported-board",
+      "featureTitle": "Modify the quiz generation logic in QuizPage.tsx to tailor question format and style based on the examination board associated with the document, with ABMA EXAMINATION format as the first supported board",
       "files": [
-        "frontend/tailwind.config.js"
+        "frontend/src/pages/QuizPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -83,7 +77,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
+        "REQ-23"
       ],
       "confidence": "high"
     }

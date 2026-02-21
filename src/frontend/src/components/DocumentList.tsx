@@ -2,8 +2,9 @@ import { useStudentDocuments } from '../hooks/useStudentDocuments';
 import { useNavigate } from '@tanstack/react-router';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FileText, PlayCircle, Calendar, Loader2 } from 'lucide-react';
+import { FileText, PlayCircle, Calendar, GraduationCap } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function DocumentList() {
@@ -66,8 +67,19 @@ export default function DocumentList() {
               <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                 <FileText className="h-5 w-5 text-primary" />
               </div>
-              <div className="space-y-1 min-w-0">
-                <p className="font-medium truncate">{doc.fileName}</p>
+              <div className="space-y-1 min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="font-medium truncate">{doc.fileName}</p>
+                  {doc.examinationBoard && (
+                    <Badge 
+                      variant="outline" 
+                      className="bg-accent/50 text-accent-foreground border-accent flex items-center gap-1 text-xs"
+                    >
+                      <GraduationCap className="h-3 w-3" />
+                      {doc.examinationBoard}
+                    </Badge>
+                  )}
+                </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Calendar className="h-3 w-3" />
                   <span>

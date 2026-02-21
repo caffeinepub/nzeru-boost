@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 11,
   "summary": "Nzeru Boost - An educational quiz web application where students can upload their own study materials (documents, textbooks) and generate AI-powered quizzes to boost their knowledge. The app aims to help students who prefer digital learning over traditional reading by providing an engaging way to study through quiz generation from their own documents.",
   "architectural_notes": [
     "Web-based application accessible via browser on all devices (Android, iOS, desktop)",
@@ -115,6 +115,46 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-fix-the-file-upload-validation-in-documentupload-tsx-to-correctly-accept-pdf-files-pdf-word-documents-doc-docx-and-text-files-txt-up-to-10mb-by-properly-checking-file-extensions-and-mime-types-application-pdf-application-msword-application-vnd-openxmlformats-officedocument-wordprocessingml-document-text-plain",
+      "title": "Fix the file upload validation in DocumentUpload.tsx to correctly accept PDF files (.pdf), Word documents (.doc, .docx), and text files (.txt) up to 10MB by properly checking file extensions and MIME types (application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain)",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-examination-board-selector-dropdown-to-the-documentupload-component-that-allows-students-to-optionally-specify-the-examination-board-format-e-g-abma-examination-cambridge-ib-igcse-none-when-uploading-study-materials",
+      "title": "Add an examination board selector dropdown to the DocumentUpload component that allows students to optionally specify the examination board format (e.g., ABMA EXAMINATION, Cambridge, IB, IGCSE, None) when uploading study materials",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-useuploaddocument-hook-to-include-the-selected-examination-board-format-when-sending-document-metadata-to-the-backend",
+      "title": "Update the useUploadDocument hook to include the selected examination board format when sending document metadata to the backend",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-the-examination-board-format-in-the-documentlist-component-for-each-uploaded-document-showing-it-as-a-badge-or-label-next-to-the-filename",
+      "title": "Display the examination board format in the DocumentList component for each uploaded document, showing it as a badge or label next to the filename",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-quiz-generation-logic-in-quizpage-tsx-to-tailor-question-format-and-style-based-on-the-examination-board-associated-with-the-document-with-abma-examination-format-as-the-first-supported-board",
+      "title": "Modify the quiz generation logic in QuizPage.tsx to tailor question format and style based on the examination board associated with the document, with ABMA EXAMINATION format as the first supported board",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -168,6 +208,28 @@
       "id": "AR-11",
       "summary": "Apply Malawi flag color theme (black, red, green) throughout the entire app including header, buttons, backgrounds, and accents",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Verify backend document processing in main.mo correctly handles PDF, DOC, DOCX, and TXT file formats when receiving uploaded document blobs with their metadata",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Generate quiz questions based on specific examination board formats (e.g., ABMA EXAMINATION format)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Extend the backend document metadata structure to include an optional 'examinationBoard' field that can store examination board formats such as 'ABMA EXAMINATION', 'Cambridge', 'IB', etc.",
+      "reqIds": [
+        "REQ-19"
+      ],
       "status": "pending"
     }
   ],

@@ -10,12 +10,18 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface DocumentMetadata {
+export type DocumentFormat = { 'doc' : null } |
+  { 'pdf' : null } |
+  { 'txt' : null } |
+  { 'docx' : null };
+export interface ExtendedDocumentMetadata {
   'id' : string,
   'fileName' : string,
   'associatedStudent' : Principal,
+  'examinationBoard' : [] | [string],
   'blobId' : string,
   'uploadDate' : Time,
+  'format' : DocumentFormat,
 }
 export interface QuizResult {
   'feedback' : string,
@@ -70,14 +76,17 @@ export interface _SERVICE {
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getDocumentMetadata' : ActorMethod<[string], DocumentMetadata>,
+  'getDocumentMetadata' : ActorMethod<[string], ExtendedDocumentMetadata>,
   'getStudentDashboard' : ActorMethod<[], StudentProgress>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
-  'listStudentDocuments' : ActorMethod<[], Array<DocumentMetadata>>,
+  'listStudentDocuments' : ActorMethod<[], Array<ExtendedDocumentMetadata>>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'submitQuizResults' : ActorMethod<[string, bigint, bigint], undefined>,
-  'uploadDocument' : ActorMethod<[string, string, string], undefined>,
+  'uploadDocument' : ActorMethod<
+    [string, string, string, DocumentFormat, [] | [string]],
+    undefined
+  >,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

@@ -1,9 +1,28 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
+import { DocumentFormat } from '../backend';
 
 interface UploadDocumentParams {
   file: File;
   onProgress?: (percentage: number) => void;
+  examinationBoard?: string | null;
+}
+
+function getDocumentFormat(fileName: string): DocumentFormat {
+  const extension = fileName.toLowerCase().split('.').pop();
+  
+  switch (extension) {
+    case 'pdf':
+      return DocumentFormat.pdf;
+    case 'doc':
+      return DocumentFormat.doc;
+    case 'docx':
+      return DocumentFormat.docx;
+    case 'txt':
+      return DocumentFormat.txt;
+    default:
+      throw new Error(`Unsupported file format: ${extension}`);
+  }
 }
 
 export function useUploadDocument() {
@@ -11,7 +30,7 @@ export function useUploadDocument() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ file, onProgress }: UploadDocumentParams) => {
+    mutationFn: async ({ file, onProgress, examinationBoard }: UploadDocumentParams) => {
       if (!actor) throw new Error('Actor not available');
 
       const arrayBuffer = await file.arrayBuffer();
@@ -33,8 +52,17 @@ export function useUploadDocument() {
         onProgress(70);
       }
 
-      // Store document metadata with the blob ID (using documentId as blobId for now)
-      await actor.uploadDocument(documentId, file.name, documentId);
+      // Determine the document format from file extension
+      const format = getDocumentFormat(file.name);
+
+      // Store document metadata with the blob ID, format, and examination board
+      await actor.uploadDocument(
+        documentId, 
+        file.name, 
+        documentId, 
+        format,
+        examinationBoard || null
+      );
 
       if (onProgress) {
         onProgress(100);

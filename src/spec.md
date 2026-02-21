@@ -1,15 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Apply Malawi flag color theme (black, red, green) throughout the application and fix remaining install button text to say "Bongo Feed".
+**Goal:** Add examination board format support to allow students to specify exam board types (ABMA, Cambridge, IB, IGCSE) when uploading documents and generate board-specific quiz questions.
 
 **Planned changes:**
-- Update install button text from "Nzeru Boost" to "Bongo Feed"
-- Apply black as primary background color throughout the app
-- Apply red (#CE1126) for buttons and accent elements
-- Apply green (#339E35) for secondary elements
-- Update CSS custom properties in frontend/index.css and frontend/src/index.css to use Malawi flag colors
-- Update Tailwind configuration to support the new color scheme
-- Ensure consistent color application across all pages and components
+- Add optional examination board field to document metadata in backend
+- Add examination board selector dropdown to document upload form
+- Display examination board badges next to documents in the document list
+- Tailor quiz question format based on the document's examination board
+- Update upload hook to send examination board information to backend
 
-**User-visible outcome:** The application displays "Bongo Feed" consistently on all buttons and uses the Malawi flag color scheme (black background, red accents/buttons, green secondary elements) throughout the interface.
+**User-visible outcome:** Students can select an examination board format when uploading study materials, see which board each document is associated with, and receive quiz questions formatted according to that board's style (starting with ABMA EXAMINATION format).

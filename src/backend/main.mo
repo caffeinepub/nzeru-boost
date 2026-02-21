@@ -9,7 +9,9 @@ import Principal "mo:core/Principal";
 import MixinAuthorization "authorization/MixinAuthorization";
 import MixinStorage "blob-storage/Mixin";
 import AccessControl "authorization/access-control";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   module QuizResult {
     public func compare(a : QuizResult, b : QuizResult) : Order.Order {
@@ -17,16 +19,24 @@ actor {
     };
   };
 
-  // Metadata for each uploaded document
-  type DocumentMetadata = {
+  type DocumentFormat = {
+    #pdf;
+    #doc;
+    #docx;
+    #txt;
+  };
+
+  type ExtendedDocumentMetadata = {
     id : Text;
     fileName : Text;
     uploadDate : Time.Time;
     associatedStudent : Principal;
     blobId : Text;
+    format : DocumentFormat;
+    examinationBoard : ?Text;
   };
 
-  let documentMetadataStore = Map.empty<Text, DocumentMetadata>();
+  let documentMetadataStore = Map.empty<Text, ExtendedDocumentMetadata>();
 
   type QuizResult = {
     quizId : Text;
@@ -47,10 +57,8 @@ actor {
     quizzesTaken : Nat;
   };
 
-  // Persistent student data
   let studentProgressStore = Map.empty<Principal, StudentProgress>();
 
-  // User profile type
   public type UserProfile = {
     name : Text;
   };
@@ -61,7 +69,6 @@ actor {
   include MixinAuthorization(accessControlState);
   include MixinStorage();
 
-  // User profile management functions
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can access profiles");
@@ -83,23 +90,29 @@ actor {
     userProfiles.add(caller, profile);
   };
 
-  // Store new document with metadata
-  public shared ({ caller }) func uploadDocument(id : Text, fileName : Text, blobId : Text) : async () {
+  public shared ({ caller }) func uploadDocument(
+    id : Text,
+    fileName : Text,
+    blobId : Text,
+    format : DocumentFormat,
+    examinationBoard : ?Text,
+  ) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can upload documents");
     };
 
-    let metadata : DocumentMetadata = {
+    let metadata : ExtendedDocumentMetadata = {
       id;
       fileName;
       uploadDate = Time.now();
       associatedStudent = caller;
       blobId;
+      format;
+      examinationBoard;
     };
     documentMetadataStore.add(id, metadata);
   };
 
-  // Record quiz result for student
   public shared ({ caller }) func submitQuizResults(quizId : Text, correctAnswers : Nat, totalQuestions : Nat) : async () {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can submit quiz results");
@@ -133,7 +146,6 @@ actor {
     updateStudentProgress(caller, result);
   };
 
-  // Get student dashboard data
   public query ({ caller }) func getStudentDashboard() : async StudentProgress {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can access dashboard");
@@ -198,14 +210,13 @@ actor {
     };
   };
 
-  public query ({ caller }) func getDocumentMetadata(documentId : Text) : async DocumentMetadata {
+  public query ({ caller }) func getDocumentMetadata(documentId : Text) : async ExtendedDocumentMetadata {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can access documents");
     };
 
     switch (documentMetadataStore.get(documentId)) {
       case (?metadata) {
-        // Verify ownership: only the document owner or admins can access
         if (caller != metadata.associatedStudent and not AccessControl.isAdmin(accessControlState, caller)) {
           Runtime.trap("Unauthorized: Can only access your own documents");
         };
@@ -215,7 +226,7 @@ actor {
     };
   };
 
-  public query ({ caller }) func listStudentDocuments() : async [DocumentMetadata] {
+  public query ({ caller }) func listStudentDocuments() : async [ExtendedDocumentMetadata] {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can list documents");
     };

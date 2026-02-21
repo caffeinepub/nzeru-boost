@@ -26,12 +26,20 @@ export const UserRole = IDL.Variant({
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const Time = IDL.Int;
-export const DocumentMetadata = IDL.Record({
+export const DocumentFormat = IDL.Variant({
+  'doc' : IDL.Null,
+  'pdf' : IDL.Null,
+  'txt' : IDL.Null,
+  'docx' : IDL.Null,
+});
+export const ExtendedDocumentMetadata = IDL.Record({
   'id' : IDL.Text,
   'fileName' : IDL.Text,
   'associatedStudent' : IDL.Principal,
+  'examinationBoard' : IDL.Opt(IDL.Text),
   'blobId' : IDL.Text,
   'uploadDate' : Time,
+  'format' : DocumentFormat,
 });
 export const QuizResult = IDL.Record({
   'feedback' : IDL.Text,
@@ -82,7 +90,11 @@ export const idlService = IDL.Service({
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-  'getDocumentMetadata' : IDL.Func([IDL.Text], [DocumentMetadata], ['query']),
+  'getDocumentMetadata' : IDL.Func(
+      [IDL.Text],
+      [ExtendedDocumentMetadata],
+      ['query'],
+    ),
   'getStudentDashboard' : IDL.Func([], [StudentProgress], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
@@ -90,10 +102,18 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
-  'listStudentDocuments' : IDL.Func([], [IDL.Vec(DocumentMetadata)], ['query']),
+  'listStudentDocuments' : IDL.Func(
+      [],
+      [IDL.Vec(ExtendedDocumentMetadata)],
+      ['query'],
+    ),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'submitQuizResults' : IDL.Func([IDL.Text, IDL.Nat, IDL.Nat], [], []),
-  'uploadDocument' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+  'uploadDocument' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, DocumentFormat, IDL.Opt(IDL.Text)],
+      [],
+      [],
+    ),
 });
 
 export const idlInitArgs = [];
@@ -117,12 +137,20 @@ export const idlFactory = ({ IDL }) => {
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const Time = IDL.Int;
-  const DocumentMetadata = IDL.Record({
+  const DocumentFormat = IDL.Variant({
+    'doc' : IDL.Null,
+    'pdf' : IDL.Null,
+    'txt' : IDL.Null,
+    'docx' : IDL.Null,
+  });
+  const ExtendedDocumentMetadata = IDL.Record({
     'id' : IDL.Text,
     'fileName' : IDL.Text,
     'associatedStudent' : IDL.Principal,
+    'examinationBoard' : IDL.Opt(IDL.Text),
     'blobId' : IDL.Text,
     'uploadDate' : Time,
+    'format' : DocumentFormat,
   });
   const QuizResult = IDL.Record({
     'feedback' : IDL.Text,
@@ -173,7 +201,11 @@ export const idlFactory = ({ IDL }) => {
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
-    'getDocumentMetadata' : IDL.Func([IDL.Text], [DocumentMetadata], ['query']),
+    'getDocumentMetadata' : IDL.Func(
+        [IDL.Text],
+        [ExtendedDocumentMetadata],
+        ['query'],
+      ),
     'getStudentDashboard' : IDL.Func([], [StudentProgress], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
@@ -183,12 +215,16 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listStudentDocuments' : IDL.Func(
         [],
-        [IDL.Vec(DocumentMetadata)],
+        [IDL.Vec(ExtendedDocumentMetadata)],
         ['query'],
       ),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'submitQuizResults' : IDL.Func([IDL.Text, IDL.Nat, IDL.Nat], [], []),
-    'uploadDocument' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+    'uploadDocument' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, DocumentFormat, IDL.Opt(IDL.Text)],
+        [],
+        [],
+      ),
   });
 };
 

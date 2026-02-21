@@ -1,106 +1,112 @@
 {
   "kind": "build_request",
-  "title": "Apply Malawi flag color theme and fix install button text",
-  "projectName": "Bongo Feed",
+  "title": "Add examination board format support for quiz generation",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-13",
-      "text": "Update the remaining install button text from 'Nzeru Boost' to 'Bongo Feed' to complete the rebranding",
-      "target": "frontend",
+      "id": "REQ-19",
+      "text": "Extend the backend document metadata structure to include an optional 'examinationBoard' field that can store examination board formats such as 'ABMA EXAMINATION', 'Cambridge', 'IB', etc.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-recent-3",
-          "msg-recent-5",
-          "msg-recent-7"
+          "msg-last"
         ],
         "quotes": [
-          "there's one install button still showing the old name",
-          "Yes please",
-          "Should I still fix the remaining install button text to say 'Bongo Feed'"
+          "Update on ask questions based on boards of exam for instance ABMA EXAMINATION format"
         ]
       },
       "acceptanceCriteria": [
-        "The install button displays 'Bongo Feed' instead of 'Nzeru Boost'",
-        "All visible text in the application uses 'Bongo Feed' consistently"
+        "Document metadata in backend/main.mo includes an optional examinationBoard field",
+        "The field accepts text values representing different examination boards",
+        "Existing documents without this field remain compatible"
       ]
     },
     {
-      "id": "REQ-14",
-      "text": "Apply Malawi flag color scheme throughout the entire application using black as primary background, red for accents and buttons, and green for secondary elements",
+      "id": "REQ-20",
+      "text": "Add an examination board selector dropdown to the DocumentUpload component that allows students to optionally specify the examination board format (e.g., ABMA EXAMINATION, Cambridge, IB, IGCSE, None) when uploading study materials",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-4",
-          "msg-recent-6"
+          "msg-last"
         ],
         "quotes": [
-          "change the color too theme must be the flag of Malawi",
-          "1.first option, 2.first option"
+          "Update on ask questions based on boards of exam for instance ABMA EXAMINATION format"
         ]
       },
       "acceptanceCriteria": [
-        "Header uses Malawi flag colors (black, red, green)",
-        "All buttons use red color for primary actions",
-        "Background uses black as the primary color",
-        "Secondary elements and accents use green color",
-        "The color scheme is applied consistently across all pages and components",
-        "Both light and dark theme variables are updated to reflect the Malawi flag colors"
+        "A dropdown appears in the DocumentUpload form before or after file selection",
+        "Options include at least: ABMA EXAMINATION, Cambridge, IB, IGCSE, and a 'None/General' option",
+        "The selected examination board is sent to the backend along with the document upload",
+        "The dropdown uses the Malawi flag color scheme consistent with the app design"
       ]
     },
     {
-      "id": "REQ-15",
-      "text": "Update all color variables in frontend/index.css and frontend/src/index.css to reflect the Malawi flag color palette (black: #000000, red: #CE1126, green: #339E35)",
+      "id": "REQ-21",
+      "text": "Update the useUploadDocument hook to include the selected examination board format when sending document metadata to the backend",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-4",
-          "msg-recent-6"
+          "msg-last"
         ],
         "quotes": [
-          "change the color too theme must be the flag of Malawi",
-          "Black as primary background, red for accents/buttons, and green for secondary elements"
+          "Update on ask questions based on boards of exam for instance ABMA EXAMINATION format"
         ]
       },
       "acceptanceCriteria": [
-        "CSS custom properties for backgrounds use black (#000000)",
-        "CSS custom properties for primary/accent colors use red (#CE1126)",
-        "CSS custom properties for secondary colors use green (#339E35)",
-        "Border and muted colors are adjusted to complement the Malawi flag palette",
-        "Chart colors are updated to use variations of the flag colors"
+        "The hook accepts examinationBoard as a parameter",
+        "The examinationBoard value is included in the backend uploadDocument call",
+        "The upload process completes successfully with the additional field"
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "Update Tailwind configuration in frontend/tailwind.config.js to support the Malawi flag color theme with appropriate color mappings",
+      "id": "REQ-22",
+      "text": "Display the examination board format in the DocumentList component for each uploaded document, showing it as a badge or label next to the filename",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent-4",
-          "msg-recent-6"
+          "msg-last"
         ],
         "quotes": [
-          "Apply Malawi flag colors (black, red, and green) throughout the entire app"
+          "Update on ask questions based on boards of exam for instance ABMA EXAMINATION format"
         ]
       },
       "acceptanceCriteria": [
-        "Tailwind theme colors reference the updated CSS variables",
-        "Custom color utilities support the Malawi flag palette",
-        "All existing Tailwind classes continue to work with the new color scheme"
+        "Each document in the list shows its examination board format if one was specified",
+        "Documents without a specified board show 'General' or no badge",
+        "The badge styling uses appropriate colors from the Malawi flag theme",
+        "The examination board information is clearly visible but does not clutter the interface"
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Modify the quiz generation logic in QuizPage.tsx to tailor question format and style based on the examination board associated with the document, with ABMA EXAMINATION format as the first supported board",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Update on ask questions based on boards of exam for instance ABMA EXAMINATION format"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When generating a quiz for a document with an examination board specified, the question format reflects that board's style",
+        "ABMA EXAMINATION format questions follow ABMA's typical structure and terminology",
+        "Questions for documents without a specified board use the current general format",
+        "The quiz interface clearly indicates which examination board format is being used"
       ]
     }
   ],
   "constraints": [
-    "Do not modify backend files or the Motoko actor",
-    "Do not change authentication logic or Internet Identity integration",
-    "Preserve all existing functionality while updating colors",
-    "Do not modify read-only paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+    "Do not modify the existing document storage or authentication logic in backend/main.mo",
+    "Maintain backward compatibility with existing documents that do not have examination board information",
+    "Use the single-actor architecture pattern already established in backend/main.mo"
   ],
   "nonGoals": [
-    "Adding new features beyond color theme and button text changes",
-    "Modifying the backend logic or data models",
-    "Changing the application structure or routing",
-    "Adding animations or transitions beyond what already exists"
+    "Implementing AI-based question generation that actually parses document content",
+    "Adding examination boards beyond the basic list (ABMA, Cambridge, IB, IGCSE)",
+    "Creating separate quiz templates for each examination board at this stage",
+    "Modifying the quiz results calculation or grading system"
   ],
   "imageRequirements": {
     "required": [],

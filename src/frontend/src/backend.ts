@@ -90,6 +90,15 @@ export class ExternalBlob {
     }
 }
 export type Time = bigint;
+export interface ExtendedDocumentMetadata {
+    id: string;
+    fileName: string;
+    associatedStudent: Principal;
+    examinationBoard?: string;
+    blobId: string;
+    uploadDate: Time;
+    format: DocumentFormat;
+}
 export interface _CaffeineStorageRefillInformation {
     proposed_top_up_amount?: bigint;
 }
@@ -99,13 +108,6 @@ export interface StudentProgress {
     averagePercentage: number;
     quizzesTaken: bigint;
     quizHistory: Array<QuizResult>;
-}
-export interface DocumentMetadata {
-    id: string;
-    fileName: string;
-    associatedStudent: Principal;
-    blobId: string;
-    uploadDate: Time;
 }
 export interface QuizResult {
     feedback: string;
@@ -128,6 +130,12 @@ export interface _CaffeineStorageRefillResult {
     success?: boolean;
     topped_up_amount?: bigint;
 }
+export enum DocumentFormat {
+    doc = "doc",
+    pdf = "pdf",
+    txt = "txt",
+    docx = "docx"
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -144,16 +152,16 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
-    getDocumentMetadata(documentId: string): Promise<DocumentMetadata>;
+    getDocumentMetadata(documentId: string): Promise<ExtendedDocumentMetadata>;
     getStudentDashboard(): Promise<StudentProgress>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
-    listStudentDocuments(): Promise<Array<DocumentMetadata>>;
+    listStudentDocuments(): Promise<Array<ExtendedDocumentMetadata>>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     submitQuizResults(quizId: string, correctAnswers: bigint, totalQuestions: bigint): Promise<void>;
-    uploadDocument(id: string, fileName: string, blobId: string): Promise<void>;
+    uploadDocument(id: string, fileName: string, blobId: string, format: DocumentFormat, examinationBoard: string | null): Promise<void>;
 }
-import type { QuizResult as _QuizResult, StudentProgress as _StudentProgress, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
+import type { DocumentFormat as _DocumentFormat, ExtendedDocumentMetadata as _ExtendedDocumentMetadata, QuizResult as _QuizResult, StudentProgress as _StudentProgress, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
@@ -296,32 +304,32 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
         }
     }
-    async getDocumentMetadata(arg0: string): Promise<DocumentMetadata> {
+    async getDocumentMetadata(arg0: string): Promise<ExtendedDocumentMetadata> {
         if (this.processError) {
             try {
                 const result = await this.actor.getDocumentMetadata(arg0);
-                return result;
+                return from_candid_ExtendedDocumentMetadata_n13(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getDocumentMetadata(arg0);
-            return result;
+            return from_candid_ExtendedDocumentMetadata_n13(this._uploadFile, this._downloadFile, result);
         }
     }
     async getStudentDashboard(): Promise<StudentProgress> {
         if (this.processError) {
             try {
                 const result = await this.actor.getStudentDashboard();
-                return from_candid_StudentProgress_n13(this._uploadFile, this._downloadFile, result);
+                return from_candid_StudentProgress_n18(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getStudentDashboard();
-            return from_candid_StudentProgress_n13(this._uploadFile, this._downloadFile, result);
+            return from_candid_StudentProgress_n18(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
@@ -352,18 +360,18 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async listStudentDocuments(): Promise<Array<DocumentMetadata>> {
+    async listStudentDocuments(): Promise<Array<ExtendedDocumentMetadata>> {
         if (this.processError) {
             try {
                 const result = await this.actor.listStudentDocuments();
-                return result;
+                return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.listStudentDocuments();
-            return result;
+            return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
         }
     }
     async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
@@ -394,23 +402,29 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async uploadDocument(arg0: string, arg1: string, arg2: string): Promise<void> {
+    async uploadDocument(arg0: string, arg1: string, arg2: string, arg3: DocumentFormat, arg4: string | null): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.uploadDocument(arg0, arg1, arg2);
+                const result = await this.actor.uploadDocument(arg0, arg1, arg2, to_candid_DocumentFormat_n22(this._uploadFile, this._downloadFile, arg3), to_candid_opt_n24(this._uploadFile, this._downloadFile, arg4));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.uploadDocument(arg0, arg1, arg2);
+            const result = await this.actor.uploadDocument(arg0, arg1, arg2, to_candid_DocumentFormat_n22(this._uploadFile, this._downloadFile, arg3), to_candid_opt_n24(this._uploadFile, this._downloadFile, arg4));
             return result;
         }
     }
 }
-function from_candid_StudentProgress_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _StudentProgress): StudentProgress {
+function from_candid_DocumentFormat_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _DocumentFormat): DocumentFormat {
+    return from_candid_variant_n17(_uploadFile, _downloadFile, value);
+}
+function from_candid_ExtendedDocumentMetadata_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ExtendedDocumentMetadata): ExtendedDocumentMetadata {
     return from_candid_record_n14(_uploadFile, _downloadFile, value);
+}
+function from_candid_StudentProgress_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _StudentProgress): StudentProgress {
+    return from_candid_record_n19(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserRole_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n12(_uploadFile, _downloadFile, value);
@@ -421,7 +435,10 @@ function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: Externa
 function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_QuizResult]): QuizResult | null {
+function from_candid_opt_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_QuizResult]): QuizResult | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
@@ -431,6 +448,33 @@ function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Ar
     return value.length === 0 ? null : value[0];
 }
 function from_candid_record_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: string;
+    fileName: string;
+    associatedStudent: Principal;
+    examinationBoard: [] | [string];
+    blobId: string;
+    uploadDate: _Time;
+    format: _DocumentFormat;
+}): {
+    id: string;
+    fileName: string;
+    associatedStudent: Principal;
+    examinationBoard?: string;
+    blobId: string;
+    uploadDate: Time;
+    format: DocumentFormat;
+} {
+    return {
+        id: value.id,
+        fileName: value.fileName,
+        associatedStudent: value.associatedStudent,
+        examinationBoard: record_opt_to_undefined(from_candid_opt_n15(_uploadFile, _downloadFile, value.examinationBoard)),
+        blobId: value.blobId,
+        uploadDate: value.uploadDate,
+        format: from_candid_DocumentFormat_n16(_uploadFile, _downloadFile, value.format)
+    };
+}
+function from_candid_record_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     studentPrincipal: Principal;
     bestScore: [] | [_QuizResult];
     averagePercentage: number;
@@ -445,7 +489,7 @@ function from_candid_record_n14(_uploadFile: (file: ExternalBlob) => Promise<Uin
 } {
     return {
         studentPrincipal: value.studentPrincipal,
-        bestScore: record_opt_to_undefined(from_candid_opt_n15(_uploadFile, _downloadFile, value.bestScore)),
+        bestScore: record_opt_to_undefined(from_candid_opt_n20(_uploadFile, _downloadFile, value.bestScore)),
         averagePercentage: value.averagePercentage,
         quizzesTaken: value.quizzesTaken,
         quizHistory: value.quizHistory
@@ -472,6 +516,23 @@ function from_candid_variant_n12(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
+function from_candid_variant_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    doc: null;
+} | {
+    pdf: null;
+} | {
+    txt: null;
+} | {
+    docx: null;
+}): DocumentFormat {
+    return "doc" in value ? DocumentFormat.doc : "pdf" in value ? DocumentFormat.pdf : "txt" in value ? DocumentFormat.txt : "docx" in value ? DocumentFormat.docx : value;
+}
+function from_candid_vec_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ExtendedDocumentMetadata>): Array<ExtendedDocumentMetadata> {
+    return value.map((x)=>from_candid_ExtendedDocumentMetadata_n13(_uploadFile, _downloadFile, x));
+}
+function to_candid_DocumentFormat_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: DocumentFormat): _DocumentFormat {
+    return to_candid_variant_n23(_uploadFile, _downloadFile, value);
+}
 function to_candid_UserRole_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n9(_uploadFile, _downloadFile, value);
 }
@@ -481,6 +542,9 @@ function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: Exte
 function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
     return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
 }
+function to_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: string | null): [] | [string] {
+    return value === null ? candid_none() : candid_some(value);
+}
 function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     proposed_top_up_amount?: bigint;
 }): {
@@ -489,6 +553,25 @@ function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
     return {
         proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
     };
+}
+function to_candid_variant_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: DocumentFormat): {
+    doc: null;
+} | {
+    pdf: null;
+} | {
+    txt: null;
+} | {
+    docx: null;
+} {
+    return value == DocumentFormat.doc ? {
+        doc: null
+    } : value == DocumentFormat.pdf ? {
+        pdf: null
+    } : value == DocumentFormat.txt ? {
+        txt: null
+    } : value == DocumentFormat.docx ? {
+        docx: null
+    } : value;
 }
 function to_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
     admin: null;
